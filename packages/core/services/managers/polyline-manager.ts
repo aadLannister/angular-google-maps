@@ -5,7 +5,7 @@ import {Observer} from 'rxjs/Observer';
 import {AgmPolyline} from '../../directives/polyline';
 import {AgmPolylinePoint} from '../../directives/polyline-point';
 import {GoogleMapsAPIWrapper} from '../google-maps-api-wrapper';
-import {LatLngLiteral, Polyline} from '../google-maps-types';
+import {LatLng, LatLngLiteral, Polyline} from '../google-maps-types';
 
 @Injectable()
 export class PolylineManager {
@@ -64,7 +64,10 @@ export class PolylineManager {
       });
     });
   }
-
+  getPath(polyline: AgmPolyline): Promise<Array<LatLng>> {
+    return this._polylines.get(polyline)
+      .then((polyline) => polyline.getPath().getArray());
+  }
   createEventObservable<T>(eventName: string, line: AgmPolyline): Observable<T> {
     return Observable.create((observer: Observer<T>) => {
       this._polylines.get(line).then((l: Polyline) => {
