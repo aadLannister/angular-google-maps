@@ -188,10 +188,10 @@ export class AgmPolyline implements OnDestroy, OnChanges, AfterContentInit {
     optionKeys.forEach(k => options[k] = changes[k].currentValue);
     this._polylineManager.setPolylineOptions(this, options);
   }
- 
+
   getPath(): Promise<Array<LatLng>> {
-     return this._polylineManager.getPath(this);
- }
+    return this._polylineManager.getPath(this);
+  }
 
   private _init() {
     this._polylineManager.addPolyline(this);
